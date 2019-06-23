@@ -8,6 +8,7 @@ A collection of well tested Swift Property Wrappers.
 - [@Expirable](#Expirable)
 - [@LateInit](#LateInit)
 - [@Lazy](#Lazy)
+- [@Stack](#Stack)
 - [@UndoRedo](#UndoRedo)
 - [@UserDefault](#UserDefault)
 - More coming ...
@@ -158,6 +159,24 @@ A reimplementation of Swift `lazy` syntax sugar using a property wrapper.
 lazy var helloWorld = "Hello, World!"
 // or 
 @Lazy var helloWorld = "Hello, World!"
+```
+
+## @Stack
+
+Implementation of a classic [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)).
+The property wrapper maps `get` to `pop` and `set` to `push` hence it behaves like a pointer to the top of the stack.
+
+- Important: Accessing the wrapped property means the most recently added element is removed from the stack.
+If what you want to do is check the value without removing it then use the property wrapper `peek()` method.
+
+```
+@Stack val topOfTasksStack: Task
+
+topOfTasksStack = Task(1)
+
+while let task = self.topOfTasksStack {
+    process(task)
+}
 ```
 
 
